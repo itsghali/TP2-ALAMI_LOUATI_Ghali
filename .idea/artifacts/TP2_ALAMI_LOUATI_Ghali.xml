@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TP2-ALAMI_LOUATI_Ghali">
+    <output-path>$PROJECT_DIR$/out/artifacts/TP2_ALAMI_LOUATI_Ghali</output-path>
+    <root id="archive" name="TP2-ALAMI_LOUATI_Ghali.jar">
+      <element id="module-output" name="TP2-ALAMI_LOUATI_Ghali" />
+    </root>
+  </artifact>
+</component>
