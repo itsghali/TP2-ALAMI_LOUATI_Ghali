@@ -1,6 +1,6 @@
 # TP2-ALAMI_LOUATI_Ghali
 
-Le SDK du projet et les configurations partagées Test4/Test5 utilisent
+Le SDK du projet et les configurations partagées Test4/Test5/Test6 utilisent
 `temurin-25` (JDK 25). La compilation Maven cible Java 25.
 
 ## Test 4 — embeddings
@@ -110,3 +110,79 @@ L’état final conserve Marseille dans `infos.txt` et la question sur la capita
 dans `Test5Rag1`, pour reproduire le dernier essai. Les deux autres questions
 figurent en commentaire : les réutiliser pour refaire les essais sur Felix.
 Les avertissements de bibliothèques n’ont pas empêché l’exécution réussie.
+
+## Test 6 — RAG 2
+
+Lancer la configuration IntelliJ partagée `Test6Rag2`, configurée avec
+`temurin-25` (JDK 25), depuis la racine du projet. `GEMINI_KEY` doit être définie.
+Le fichier `ml.pdf` doit rester à cette racine. Saisir une question, puis Entrée ;
+une ligne vide est ignorée et `fin` termine la conversation, sans distinction
+entre majuscules et minuscules.
+
+`Test6Rag2` reprend Test5 et la boucle fournie par le professeur : le PDF remplace
+`infos.txt`. Easy RAG charge et découpe le document, calcule les embeddings locaux
+et les stocke en mémoire une fois au démarrage. Chaque question récupère les
+segments pertinents. Le même assistant conserve une mémoire de 10 messages entre
+les questions, avec une température de 0,3. Aucune nouvelle dépendance nécessaire.
+
+### Liens analysés le 14 novembre 2026
+
+Les quatre liens directs de la section Test6 ont été consultés, ainsi que le PDF
+demandé et la page complémentaire sur la préparation des documents.
+
+| Lien | Accès et apport pour Test6 |
+|---|---|
+| [Boucle de conversation](http://richard.grin.free.fr/emsi/casablanca-ia/tp/tp2-langchain4j/conversation.html) | HTTP 200 ; boucle `Scanner` reprise, ligne vide ignorée, arrêt par `fin` |
+| [Code Easy RAG fourni](http://richard.grin.free.fr/emsi/casablanca-ia/tp/tp2-langchain4j/rag.html) | HTTP 200 ; ingestion, magasin en mémoire, retriever et mémoire conservés |
+| [Exercice embeddings lié](http://richard.grin.free.fr/emsi/casablanca-ia/tp/tp2-langchain4j/index.html#embeddings) | HTTP 200 ; limites du modèle anglais sur du français ; modèle local conservé pour éviter les appels d’embeddings externes |
+| [RAG naïf et préparation — TP4](http://richard.grin.free.fr/emsi/casablanca-ia/tp/tp4-rag/index.html#naif) | HTTP 200 ; distingue les étapes et explique les limites des réglages par défaut ; lecture de référence, aucun exercice TP4 réalisé |
+| [Préparation des documents, complément lié depuis TP4](http://richard.grin.free.fr/emsi/casablanca-ia/tp/tp4-rag/aide/preparation.html) | HTTP 200 ; nettoyage, métadonnées et découpage par diapositive ; amélioration laissée au TP4 |
+| [PDF machine learning](http://richard.grin.free.fr/emsi/casablanca-ia/supports/ml.pdf) | HTTP 200 ; fichier téléchargé, analysé et utilisé par Test6 |
+
+Le PDF actuel est la **version 1.53 du 10 novembre 2026**, sur **27 pages PDF**.
+Il est plus récent que la copie référencée dans l’analyse initiale du cours.
+La lecture locale a extrait 64 896 caractères avec Tika. Empreinte SHA-256 :
+`D77824FA500C57B982011C892960ED38A3D716CC052681336469EC96F1CDBB7E`.
+
+La [documentation officielle Easy RAG](https://docs.langchain4j.dev/tutorials/rag/#easy-rag)
+a également été consultée : chargement PDF avec Tika, modèle local quantifié et
+découpage par défaut. Ces réglages ne sont pas remplacés par ceux du TP4.
+
+### Conversation réellement obtenue sous JDK 25
+
+Une ligne vide a d’abord été envoyée : nouvelle invitation à poser une question,
+sans réponse du modèle.
+
+**Question 1 :** `Quelle difference entre apprentissage supervise et auto-supervise selon ce support ?`
+
+> D'après le support fourni, voici la différence entre les deux types d'apprentissage :
+>
+> * **Apprentissage supervisé :** Il utilise des données d'entrée accompagnées d'une étiquette ou d'une variable cible (par exemple, des photos de chiens et de chats étiquetées "chien" ou "chat" par des humains).
+> * **Apprentissage auto-supervisé (SSL) :** Il se situe à mi-chemin entre le supervisé et le non supervisé. Le modèle apprend à partir de données non annotées, mais des « étiquettes » sont **générées automatiquement** à partir des données d'entraînement (comme dans le pré-entraînement des LLM pour prédire le prochain mot).
+
+**Question 2, dans la même session :** `Donne un exemple du second type cite dans ta reponse.`
+
+> D'après le support fourni dans la première réponse, le deuxième type cité (l'apprentissage auto-supervisé) a pour exemple :
+>
+> * **Le pré-entraînement des LLM pour prédire le prochain mot** (afin de comprendre le langage et les patterns).
+
+`FIN` a ensuite terminé le programme avec un code de sortie **0**.
+Les réponses sont cohérentes avec les diapositives sur les apprentissages
+supervisé et auto-supervisé et les étapes d’apprentissage d’un LLM. La deuxième
+question est comprise en référence à la première réponse. La question utilisée
+est différente de l’exemple sur l’objectif du cours, exclu du bonus par l’énoncé.
+Conserver la question 1 et sa réponse pour le corps du futur email de rendu.
+
+Les sept fichiers Java du projet compilent ensemble sous Java 25. Les essais de
+conversation ci-dessus ont été exécutés en ligne de commande sous JDK 25.
+Le lancement interactif dans IntelliJ n’a pas pu être vérifié pendant cette
+intervention : l’accès à la fenêtre a été refusé. La configuration de lancement
+enregistrée fixe explicitement JDK 25, le répertoire du projet et l’exclusion des
+dépendances `provided`, comme pour Test5.
+
+Les avertissements de journalisation et de polices PDF n’ont pas bloqué ces essais.
+Ils rappellent néanmoins qu’une extraction PDF peut perdre certains caractères.
+Le modèle local anglais et le découpage fixe d’un PDF contenant plusieurs diapos
+par page peuvent aussi réduire la pertinence : ces résultats ponctuels ne
+garantissent pas toutes les réponses. Le RAG avancé et la préparation détaillée
+des supports restent hors du Test6.
