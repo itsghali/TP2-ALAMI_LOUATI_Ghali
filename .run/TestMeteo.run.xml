@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TestMeteo" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="temurin-25" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="INCLUDE_PROVIDED_SCOPE" value="false" />
+    <option name="MAIN_CLASS_NAME" value="ht.ia2.alamilouati.ghali.TestMeteo" />
+    <module name="TP2-ALAMI_LOUATI_Ghali" />
+    <option name="VM_PARAMETERS" value="--enable-native-access=ALL-UNNAMED -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <shortenClasspath name="ARGS_FILE" />
+    <method v="2"><option name="Make" enabled="true" /></method>
+  </configuration>
+</component>
