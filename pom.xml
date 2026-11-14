@@ -38,9 +38,25 @@
             <version>1.23.0-beta33</version>
         </dependency>
 
+        <!-- Test4 : dependance conservee en commentaire comme demande par le TP5.
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-embeddings-bge-small-en-v15</artifactId>
+            <version>1.23.0-beta33</version>
+        </dependency>
+        -->
+
+        <!-- Disponible pour compiler Test4, absent du classpath RAG a l'execution. -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-embeddings-bge-small-en-v15</artifactId>
+            <version>1.23.0-beta33</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-easy-rag</artifactId>
             <version>1.23.0-beta33</version>
         </dependency>
 
@@ -62,4 +78,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
